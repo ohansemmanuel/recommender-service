@@ -1,10 +1,16 @@
-from flask import Flask, jsonify, request
+import os
+from flask import Flask
 import pandas as pd
 import numpy as np
 from utils.matrix_factorization_utilities import low_rank_matrix_factorization
 
 
 app = Flask(__name__)
+
+# load configs
+app.config.update(
+    DEBUG=True
+)
 
 
 @app.route('/movies', methods=['GET'])
@@ -28,14 +34,16 @@ def get_recommended_movies(user):
                                 aggfunc=np.max)
 
     # Apply matrix factorization to find the latent features
-    U, M = low_rank_matrix_factorization(ratings_df.as_matrix(), num_features=15, regularization_amount=0.1)
+    U, M = low_rank_matrix_factorization(
+        ratings_df.as_matrix(), num_features=15, regularization_amount=0.1)
 
     # Find all predicted ratings by multiplying U and M matrices
     predicted_ratings = np.matmul(U, M)
 
     user_id_to_search = int(user)
 
-    reviewed_movies_df = raw_dataset_df[raw_dataset_df['user_id'] == user_id_to_search]
+    reviewed_movies_df = raw_dataset_df[raw_dataset_df['user_id']
+                                        == user_id_to_search]
     reviewed_movies_df = reviewed_movies_df.join(movies_df, on='movie_id')
 
     user_ratings = predicted_ratings[user_id_to_search - 1]
@@ -45,8 +53,10 @@ def get_recommended_movies(user):
     recommended_df = movies_df[movies_df.index.isin(already_reviewed) == False]
     recommended_df = recommended_df.sort_values(by=['rating'], ascending=False)
 
-    previously_recommended_movies = reviewed_movies_df[['title', 'genre', 'value']].to_json()
-    recommended_movies = recommended_df[['title', 'genre', 'rating']].head(5).to_json()
+    previously_recommended_movies = reviewed_movies_df[[
+        'title', 'genre', 'value']].to_json()
+    recommended_movies = recommended_df[[
+        'title', 'genre', 'rating']].head(5).to_json()
 
     return jsonify({
         'id': user,
@@ -56,4 +66,3 @@ def get_recommended_movies(user):
 
 
 app.run(port=5000)
-
