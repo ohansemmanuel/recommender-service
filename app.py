@@ -13,10 +13,11 @@ from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
 app = Flask(__name__)
+
 # load configs
 app.config.update(
     DEBUG=True,
-    JWT_SECRET_KEY=os.getenv('SECRET_KEY')
+    JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY')
 )
 
 api = Api(app)
