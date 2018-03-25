@@ -1,11 +1,11 @@
 import os
 from flask import Flask
 from flask_restful import Api
-from flask_jwt import JWT
+from flask_jwt_extended import JWTManager
 import pandas as pd
 import numpy as np
 
-from security import authenticate, identity
+from resources.access import AccessToken
 from resources.recommend import RecommendedMovies
 from resources.movies import Movies
 from resources.movie import Movie
@@ -16,14 +16,15 @@ app = Flask(__name__)
 # load configs
 app.config.update(
     DEBUG=True,
-    SECRET_KEY=os.getenv('SECRET_KEY')
+    JWT_SECRET_KEY=os.getenv('SECRET_KEY')
 )
 
 api = Api(app)
 
-#auth
-jwt = JWT(app, authenticate, identity)
+# auth
+jwt = JWTManager(app)
 
+api.add_resource(AccessToken, '/auth')
 api.add_resource(RecommendedMovies, '/recommend/movies/<int:user_id>')
 api.add_resource(Movies, '/movies')
 api.add_resource(Movie, '/movie/<string:movie_name>')

@@ -1,13 +1,13 @@
 from flask_restful import Resource, reqparse
 from utils.matrix_factorization_utilities import low_rank_matrix_factorization
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 import pandas as pd
 import numpy as np
 
 
 class RecommendedMovies(Resource):
 
-    @jwt_required()
+    @jwt_required
     def get(self, user_id):
         # Load user ratings
         raw_dataset_df = pd.read_csv('data/movie_ratings_data_set.csv')

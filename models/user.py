@@ -17,14 +17,15 @@ userid_mapping = {
 
 
 class UserModel(object):
-    def __init__(self, user_id, username, password):
-        self._id = user_id
-        self.username = username
-        self.password = password
+    # def __init__(self, user_id, username, password):
+    #     self._id = user_id
+    #     self.username = username
+    #     self.password = password
 
     # TODO: have user(s) pulled out from a DB
     def find_by_username(self, username):
         user = username_mapping.get(username, None)
+        print(user)
         if user:
             return user
 
