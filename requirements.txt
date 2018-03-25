@@ -4,3 +4,6 @@ python-dateutil==2.7.0
 pytz==2018.3
 scipy==1.0.0
 six==1.11.0
+Flask==0.12.2
+Flask-JWT-Extended==3.7.2
+Flask-RESTful==0.3.6
