@@ -25,6 +25,7 @@ I'm currently building out a web client where you can try this.
 I'll have the link here, when there's something pretty for you to see :)
 
 <h2 align="center">How do I run the app locally?</h2>
+
 Yeah, I've got your back.
 
 1.  Clone the repo
@@ -74,5 +75,4 @@ If you wanna try something out, here's the endpoint for retrieving a list of mov
 
 I'll refactor pretty soon. Still writing out the code. It never gets completed, does it? :(
 
-Catch you later! �
-�
+Catch you later! 👊
