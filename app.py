@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 from resources.access import AccessToken
-from resources.recommend import RecommendedMovies
+from resources.recommend import RecommendMovies
 from resources.movies import Movies
 from resources.movie import Movie
 from dotenv import load_dotenv
@@ -26,7 +26,7 @@ api = Api(app)
 jwt = JWTManager(app)
 
 api.add_resource(AccessToken, '/auth')
-api.add_resource(RecommendedMovies, '/recommend/movies/<int:user_id>')
+api.add_resource(RecommendMovies, '/recommend/movies/<int:user_id>')
 api.add_resource(Movies, '/movies')
 api.add_resource(Movie, '/movie/<string:movie_name>')
 
