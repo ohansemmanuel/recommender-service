@@ -8,4 +8,5 @@ six==1.11.0
 Flask==0.12.2
 Flask-JWT-Extended==3.7.2
 Flask-RESTful==0.3.6
+Flask-Cors==3.0.3
 uwsgi
