@@ -14,12 +14,13 @@ from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
 
 # load configs
 app.config.update(
     DEBUG=True,
-    JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY')
+    JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY'),
+    CORS_HEADERS='Content-Type'
 )
 
 api = Api(app)
